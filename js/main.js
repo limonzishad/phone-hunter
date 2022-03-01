@@ -52,6 +52,12 @@ const showSearchResults = data => {
             `;
             searchResults.appendChild(div);
         });
+        const showMore = document.createElement("div");
+        showMore.classList.add("show-more-btn");
+        showMore.innerHTML = `
+        <button type="button" class="btn btn-primary shadow-lg">Show More</button>
+        `;
+        searchResults.appendChild(showMore);
     }
 }
 //loads device result
@@ -71,24 +77,58 @@ const removeModal = () => {
 const showDeviceDetails = deviceId => {
     const deviceDetails = document.getElementById("device-details");
     const detailsDiv = document.getElementById("remove-previous-modal");
-    const { storage, displaySize, chipSet, memory, sensors } = deviceId.data.mainFeatures;//object destructuring
-    const div = document.createElement("div");
-    div.classList.add("modal-content");
-    div.innerHTML = `    
+    //object destructuring
+    const { storage, displaySize, chipSet, memory, sensors } = deviceId.data.mainFeatures;
+    if (typeof deviceId?.data?.others == "undefined") {
+        const div = document.createElement("div");
+        div.classList.add("modal-content");
+        div.innerHTML = `    
         <div class="modal-header">
             <h5 class="modal-title" id="staticBackdropLabel">Device Specifications</h5>
             <button onclick="removeModal()" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
+        <h5 class="text-body fw-bold">Main Features</h5>
         <p class="text-wrap">Release Date: <span id="release-date" class="text-body fw-bold"><span></p>
         <p class="text-wrap">Storage: <span class="fw-bold">${storage}</span></p>
         <p class="text-wrap">Display Size: <span class="fw-bold">${displaySize}</span></p>
         <p class="text-wrap">Chip set: <span class="fw-bold">${chipSet}</span></p>
         <p class="text-wrap">Memory: <span class="fw-bold">${memory}</span></p>
         <p class="text-wrap">Sensors: <span class="fw-bold">${sensors}</span></p>
-        </div>
-    `;
-    detailsDiv.appendChild(div);
+        <h5 class="text-body fw-bold">Other Information</h5>
+        <p class="text-wrap">Other information's are not available</span></p>
+        `;
+        detailsDiv.appendChild(div);
+
+    }
+    else {
+        const { WLAN, Bluetooth, GPS, NFC, Radio, USB } = deviceId.data.others;
+        const div = document.createElement("div");
+        div.classList.add("modal-content");
+        div.innerHTML = `    
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Device Specifications</h5>
+                <button onclick="removeModal()" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            <h5 class="text-body fw-bold">Main Features</h5>
+            <p class="text-wrap">Release Date: <span id="release-date" class="text-body fw-bold"><span></p>
+            <p class="text-wrap">Storage: <span class="fw-bold">${storage}</span></p>
+            <p class="text-wrap">Display Size: <span class="fw-bold">${displaySize}</span></p>
+            <p class="text-wrap">Chip set: <span class="fw-bold">${chipSet}</span></p>
+            <p class="text-wrap">Memory: <span class="fw-bold">${memory}</span></p>
+            <p class="text-wrap">Sensors: <span class="fw-bold">${sensors}</span></p>
+            <h5 class="text-body fw-bold">Other Information</h5>
+            <p class="text-wrap">Storage: <span class="fw-bold">${Bluetooth}</span></p>
+            <p class="text-wrap">Display Size: <span class="fw-bold">${WLAN}</span></p>
+            <p class="text-wrap">Chip set: <span class="fw-bold">${GPS}</span></p>
+            <p class="text-wrap">Memory: <span class="fw-bold">${NFC}</span></p>
+            <p class="text-wrap">Sensors: <span class="fw-bold">${Radio}</span></p>
+            <p class="text-wrap">Sensors: <span class="fw-bold">${USB}</span></p>
+            </div>
+        `;
+        detailsDiv.appendChild(div);
+    }
     //check release date
     const releaseDateText = document.getElementById("release-date");
     const previousReleaseDateText = releaseDateText.innerText;
