@@ -25,7 +25,7 @@ const showSearchResults = data => {
             const div = document.createElement("div");
             div.classList.add("col");
             div.innerHTML = `
-                <div class="card h-100 p-3">
+                <div class="shadow-lg card h-100 p-3">
                     <img src="${device.image}" class="card-img-top device-img" alt="${device.phone_name}">
                     <div class="card-body">
                         <h5 class="card-title">Name: ${device.phone_name}</h5>
@@ -48,27 +48,27 @@ const loadDeviceDetails = deviceId => {
 //remove previous modal
 const removeModal = () => {
     const previousModal = document.getElementById("remove-previous-modal");
-    const albal = previousModal.children[0];
-    previousModal.removeChild(albal);
+    const loadModal = previousModal.children[0];
+    previousModal.removeChild(loadModal);
 }
 //shows device result
 const showDeviceDetails = deviceId => {
     const deviceDetails = document.getElementById("device-details");
     const detailsDiv = document.getElementById("remove-previous-modal");
-    //console.log(deviceId);
-    deviceId.innerHTML = "";
+    const { storage, displaySize, chipSet, memory, sensors } = deviceId;//object destructuring
     const div = document.createElement("div");
     div.classList.add("modal-content");
     div.innerHTML = `    
         <div class="modal-header">
-            <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+            <h5 class="modal-title" id="staticBackdropLabel">Modal title Modal title Modal title</h5>
             <button onclick="removeModal()" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            ...
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-primary">Understood</button>
+        <p class="text-wrap">Storage: <span class="fw-bold">${storage}</span></p>
+        <p class="text-wrap">Display Size: <span class="fw-bold">${displaySize}</span></p>
+        <p class="text-wrap">Chip set: <span class="fw-bold">${chipSet}</span></p>
+        <p class="text-wrap">Memory: <span class="fw-bold">${memory}</span></p>
+        <p class="text-wrap">Sensors: <span class="fw-bold">${sensors}</span></p>
         </div>
     `;
     detailsDiv.appendChild(div);
