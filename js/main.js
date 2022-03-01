@@ -59,7 +59,7 @@ const loadDeviceDetails = deviceId => {
     const dynamicUrl = `https://openapi.programming-hero.com/api/phone/${deviceId}`;
     fetch(dynamicUrl)
         .then(response => response.json())
-        .then(details => showDeviceDetails(details.data.mainFeatures));
+        .then(details => showDeviceDetails(details));
 }
 //remove previous modal
 const removeModal = () => {
@@ -71,15 +71,16 @@ const removeModal = () => {
 const showDeviceDetails = deviceId => {
     const deviceDetails = document.getElementById("device-details");
     const detailsDiv = document.getElementById("remove-previous-modal");
-    const { storage, displaySize, chipSet, memory, sensors } = deviceId;//object destructuring
+    const { storage, displaySize, chipSet, memory, sensors } = deviceId.data.mainFeatures;//object destructuring
     const div = document.createElement("div");
     div.classList.add("modal-content");
     div.innerHTML = `    
         <div class="modal-header">
-            <h5 class="modal-title" id="staticBackdropLabel">Modal title Modal title Modal title</h5>
+            <h5 class="modal-title" id="staticBackdropLabel">Device Specifications</h5>
             <button onclick="removeModal()" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
+        <p class="text-wrap">Release Date: <span id="release-date" class="text-body fw-bold"><span></p>
         <p class="text-wrap">Storage: <span class="fw-bold">${storage}</span></p>
         <p class="text-wrap">Display Size: <span class="fw-bold">${displaySize}</span></p>
         <p class="text-wrap">Chip set: <span class="fw-bold">${chipSet}</span></p>
@@ -88,4 +89,13 @@ const showDeviceDetails = deviceId => {
         </div>
     `;
     detailsDiv.appendChild(div);
+    //check release date
+    const releaseDateText = document.getElementById("release-date");
+    const previousReleaseDateText = releaseDateText.innerText;
+    if (deviceId.data.releaseDate == 0) {
+        releaseDateText.innerText = "Coming Soon";
+    }
+    else {
+        releaseDateText.innerText = deviceId.data.releaseDate;
+    }
 }
