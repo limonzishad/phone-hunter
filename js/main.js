@@ -26,18 +26,37 @@ const showSearchResults = data => {
                     <h5 class="card-title">Name: ${device.phone_name}</h5>
                     <p class="card-text">Brand: ${device.brand}</p>
                 </div>
-                <button onclick="showDeviceDetails('${device.slug}')" type="button" class="btn btn-info">Details</button>
+                <button onclick="loadDeviceDetails('${device.slug}')" type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Details</button>
             </div>
         `;
         searchResults.appendChild(div);
     });
 }
-//shows device result
-const showDeviceDetails = deviceId => {
+//loads device result
+const loadDeviceDetails = deviceId => {
     const dynamicUrl = `https://openapi.programming-hero.com/api/phone/${deviceId}`;
     fetch(dynamicUrl)
         .then(response => response.json())
-        .then(details => details.mainFeatures)
+        .then(details => showDeviceDetails(details.data.mainFeatures));
+}
+//shows device result
+const showDeviceDetails = deviceId => {
+    const deviceDetails = document.getElementById("device-details");
     console.log(deviceId);
-    //const deviceDetails = document.getElementById("")
+    const div = document.createElement("div");
+    div.classList.add("modal-content");
+    div.innerHTML = `    
+        <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            ...
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Understood</button>
+        </div>
+    `;
+    deviceDetails.appendChild(div);
 }
