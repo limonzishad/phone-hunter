@@ -37,25 +37,26 @@ const showSearchResults = data => {
     }
     else {
         clearErrorMassage();
-        data.forEach(device => {
+        const show20Devices = data.slice(0, 20);
+        show20Devices.forEach(device => {
             const div = document.createElement("div");
             div.classList.add("col");
             div.innerHTML = `
-                <div class="shadow-lg card h-100 p-3">
-                    <img src="${device.image}" class="card-img-top device-img" alt="${device.phone_name}">
-                    <div class="card-body">
-                        <h5 class="card-title">Name: ${device.phone_name}</h5>
-                        <p class="card-text">Brand: ${device.brand}</p>
+                    <div class="shadow-lg card h-100 p-3">
+                        <img src="${device.image}" class="card-img-top device-img" alt="${device.phone_name}">
+                        <div class="card-body">
+                            <h5 class="card-title">Name: ${device.phone_name}</h5>
+                            <p class="card-text">Brand: ${device.brand}</p>
+                        </div>
+                        <button onclick="loadDeviceDetails('${device.slug}')" type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Details</button>
                     </div>
-                    <button onclick="loadDeviceDetails('${device.slug}')" type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Details</button>
-                </div>
-            `;
+                `;
             searchResults.appendChild(div);
         });
         const showMore = document.createElement("div");
         showMore.classList.add("show-more-btn");
         showMore.innerHTML = `
-        <button type="button" class="btn btn-primary shadow-lg">Show More</button>
+        <button onclick="" type="button" class="btn btn-primary shadow-lg">Show More</button>
         `;
         searchResults.appendChild(showMore);
     }
@@ -113,11 +114,11 @@ const showDeviceDetails = deviceId => {
             <div class="modal-body">
             <h5 class="text-body fw-bold">Main Features</h5>
             <p class="text-wrap">Release Date: <span id="release-date" class="text-body fw-bold"><span></p>
-            <p class="text-wrap">Storage: <span class="fw-bold">${storage}</span></p>
-            <p class="text-wrap">Display Size: <span class="fw-bold">${displaySize}</span></p>
-            <p class="text-wrap">Chip set: <span class="fw-bold">${chipSet}</span></p>
-            <p class="text-wrap">Memory: <span class="fw-bold">${memory}</span></p>
-            <p class="text-wrap">Sensors: <span class="fw-bold">${sensors}</span></p>
+            <p class="text-break">Storage: <span class="fw-bold">${storage}</span></p>
+            <p class="text-break">Display Size: <span class="fw-bold">${displaySize}</span></p>
+            <p class="text-break">Chip set: <span class="fw-bold">${chipSet}</span></p>
+            <p class="text-break">Memory: <span class="fw-bold">${memory}</span></p>
+            <p class="text-break">Sensors: <span class="fw-bold">${sensors}</span></p>
             <h5 class="text-body fw-bold">Other Information</h5>
             <p class="text-wrap">Storage: <span class="fw-bold">${Bluetooth}</span></p>
             <p class="text-wrap">Display Size: <span class="fw-bold">${WLAN}</span></p>
