@@ -3,9 +3,10 @@ const searchPhone = () => {
     const searchInput = document.getElementById("searched-phone");
     const searchText = searchInput.value;
     if (searchText == " " || searchText == "") {
-        console.log("error");
+        errorMassage();
     }
     else {
+        clearErrorMassage();
         searchInput.value = "";
         const dynamicUrl = `https://openapi.programming-hero.com/api/phones?search=${searchText}`;
         fetch(dynamicUrl)
@@ -13,14 +14,29 @@ const searchPhone = () => {
             .then(devices => showSearchResults(devices.data));
     }
 }
+// error massage function
+const errorMassage = () => {
+    const errorMassage = document.getElementById("error-message");
+    const previousErrorMassage = errorMassage.innerText;
+    errorMassage.innerText = 'field empty or wrong input';
+    return errorMassage;
+}
+//clear error massage
+const clearErrorMassage = () => {
+    const clearMassage = document.getElementById("error-message");
+    const previousErrorMassage = clearMassage.innerText;
+    clearMassage.innerText = '';
+    return clearMassage;
+}
 //shows search results
 const showSearchResults = data => {
     const searchResults = document.getElementById("search-result");
     searchResults.textContent = ""; // clears previous search results
     if (data.length == 0) {
-        console.log('no data found');
+        errorMassage();
     }
     else {
+        clearErrorMassage();
         data.forEach(device => {
             const div = document.createElement("div");
             div.classList.add("col");
