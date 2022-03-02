@@ -13,3 +13,7 @@
     flex-direction: column-reverse;
     align-items: center;
 }
+.modal-image{
+    margin-bottom: 2%;
+    text-align: center;
+}

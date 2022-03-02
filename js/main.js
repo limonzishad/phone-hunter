@@ -43,7 +43,7 @@ const showSearchResults = data => {
             div.classList.add("col");
             div.innerHTML = `
                     <div class="shadow-lg card h-100 p-3">
-                        <img src="${device.image}" class="card-img-top device-img" alt="${device.phone_name}">
+                        <img src="${device.image}" class="card-img-top device-img" alt="">
                         <div class="card-body">
                             <h5 class="card-title">Name: ${device.phone_name}</h5>
                             <p class="card-text">Brand: ${device.brand}</p>
@@ -80,6 +80,8 @@ const showDeviceDetails = deviceId => {
     const detailsDiv = document.getElementById("remove-previous-modal");
     //object destructuring
     const { storage, displaySize, chipSet, memory, sensors } = deviceId.data.mainFeatures;
+    const { image } = deviceId.data;
+    //shows search results
     if (typeof deviceId?.data?.others == "undefined") {
         const div = document.createElement("div");
         div.classList.add("modal-content");
@@ -89,6 +91,10 @@ const showDeviceDetails = deviceId => {
             <button onclick="removeModal()" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
+        <div>
+            <img src="${image}" class="modal-image" alt="">
+            <p class="text-body text-center mb-1">${deviceId.data.brand} ${deviceId.data.name}</p>
+        <div/>
         <h5 class="text-body fw-bold">Main Features</h5>
         <p class="text-wrap">Release Date: <span id="release-date" class="text-body fw-bold"><span></p>
         <p class="text-wrap">Storage: <span class="fw-bold">${storage}</span></p>
@@ -98,6 +104,7 @@ const showDeviceDetails = deviceId => {
         <p class="text-wrap">Sensors: <span class="fw-bold">${sensors}</span></p>
         <h5 class="text-body fw-bold">Other Information</h5>
         <p class="text-wrap">Other information's are not available</span></p>
+        </div>
         `;
         detailsDiv.appendChild(div);
 
@@ -112,6 +119,12 @@ const showDeviceDetails = deviceId => {
                 <button onclick="removeModal()" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+            <div>
+                <div class="modal-image">
+                    <img src="${image}" class="modal-image" alt="">
+                    <p class="text-body text-center mb-1">${deviceId.data.brand} ${deviceId.data.name}</p>
+                </div>
+                <div/>
             <h5 class="text-body fw-bold">Main Features</h5>
             <p class="text-wrap">Release Date: <span id="release-date" class="text-body fw-bold"><span></p>
             <p class="text-break">Storage: <span class="fw-bold">${storage}</span></p>
