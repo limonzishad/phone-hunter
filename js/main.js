@@ -92,8 +92,10 @@ const showDeviceDetails = deviceId => {
         </div>
         <div class="modal-body">
         <div>
-            <img src="${image}" class="modal-image" alt="">
-            <p class="text-body text-center mb-1">${deviceId.data.brand} ${deviceId.data.name}</p>
+            <div class="modal-image">
+                <img src="${image}" class="modal-image" alt="">
+                <p class="text-body text-center mb-1">${deviceId.data.brand} ${deviceId.data.name}</p>
+            </div>
         <div/>
         <h5 class="text-body fw-bold">Main Features</h5>
         <p class="text-wrap">Release Date: <span id="release-date" class="text-body fw-bold"><span></p>
@@ -124,7 +126,7 @@ const showDeviceDetails = deviceId => {
                     <img src="${image}" class="modal-image" alt="">
                     <p class="text-body text-center mb-1">${deviceId.data.brand} ${deviceId.data.name}</p>
                 </div>
-                <div/>
+            <div/>
             <h5 class="text-body fw-bold">Main Features</h5>
             <p class="text-wrap">Release Date: <span id="release-date" class="text-body fw-bold"><span></p>
             <p class="text-break">Storage: <span class="fw-bold">${storage}</span></p>
